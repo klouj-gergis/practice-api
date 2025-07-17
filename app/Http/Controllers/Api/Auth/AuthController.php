@@ -35,7 +35,9 @@ abstract class AuthController extends Controller
             'password' => 'required|string|min:8'
         ]);
 
-        $user = User::where('email', $validatedData['email'])->firstOrFail();
+        $user = User::where('email', $validatedData['email'])
+        ->where('type', $this->getUserType())
+        ->firstOrFail();
 
         if(!Hash::check($validatedData['password'], $user->password)){
             return response()->json(['message' => 'Invalid Credintials']);
