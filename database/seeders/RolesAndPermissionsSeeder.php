@@ -60,7 +60,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'cancel orders',
         ]);
 
-        $deliveryRole = Role::firstOrCreate(['name' => 'customer']);
+        $deliveryRole = Role::firstOrCreate(['name' => 'delivery']);
         $deliveryRole->givePermissionTo([
             'view deliveries',
             'update delivery status',
