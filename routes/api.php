@@ -19,7 +19,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::apiResource('products', ProductController::class)->only(['index', 'show']);
 
-Route::middleware(['auth:sanctum', 'isAdmin'])->group(function () {
+Route::middleware(['auth:sanctum', 'permission:create products', 'isAdmin'])->group(function () {
     Route::apiResource('products', ProductController::class)->except(['index', 'show']);
 });
 
@@ -27,7 +27,7 @@ Route::middleware(['auth:sanctum', 'permission:create orders', 'isCustomer'])->g
     Route::apiResource('cart', CartController::class)->except(['show']);
 });
 
-Route::middleware(['auth:sanctum', 'isCustomer'])->group(function () {
+Route::middleware(['auth:sanctum', 'permission:create orders','isCustomer'])->group(function () {
     Route::post('/checkout', [CheckoutController::class, 'checkout']);
     Route::get('/orders', [CheckoutController::class, 'orderHestory']);
     Route::get('/orders/{orderId}', [CheckoutController::class, 'showOrder']);

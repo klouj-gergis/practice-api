@@ -23,6 +23,7 @@ abstract class AuthController extends Controller
         $validatedData['password'] = Hash::make($validatedData['password']);
 
         $user = User::create($validatedData);
+        $user->assignRole($validatedData['type']);
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
